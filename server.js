@@ -17,7 +17,8 @@ let server = htpp.createServer((request, response) => {
 	        });
 
 	        request.on('end', () => {
-	            const POST = qs.parse(body);
+				const POST = querystring.parse(body);
+				console.log(POST)
 	            callback(POST);
 	        });
         }
@@ -33,7 +34,7 @@ let server = htpp.createServer((request, response) => {
     }
 });
 
-var websocketServer = new WebsocketServer({
+var websocketServer = new WebSocketServer({
 	httpServer: server
 });
 websocketServer.on("request", websocketRequest);
@@ -44,6 +45,7 @@ function websocketRequest(request) {
 	// start the connection
 	var connection = request.accept(null, request.origin); 
 	connectionId++;
+	console.log(`New Connection ${connectionId}`)
 	// save the connection for future reference
 	clients[connectionId] = connection;
 }

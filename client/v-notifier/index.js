@@ -103,8 +103,8 @@ class VNotifier extends HTMLElement {
         }
         const body = JSON.stringify(data);
         const response = await fetch('/send-notif.php', { method: 'POST', body });
-        const data = await response.json();
-        console.log(data);
+        const responseData = await response.json();
+        console.log(responseData);
         // this.websocket.send(JSON.stringify(data));
     }
 

@@ -96,16 +96,16 @@ class VNotifier extends HTMLElement {
         }, this.timeout_sec)
     }
 
-    sendMessage () {
-        try {
-            let data = {
-                receiver_id: this._receiverId.value,
-                message: this._message.value
-            }
-            this.websocket.send(JSON.stringify(data));
-        } catch(e) {
-            this.connect();
+    async sendMessage () {
+        let data = {
+            receiver_id: this._receiverId.value,
+            message: this._message.value
         }
+        const body = JSON.stringify(data);
+        const response = await fetch('/send-notif.php', { method: 'POST', body });
+        const data = await response.json();
+        console.log(data);
+        // this.websocket.send(JSON.stringify(data));
     }
 
     _close () {

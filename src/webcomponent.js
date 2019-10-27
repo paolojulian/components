@@ -17,11 +17,11 @@ module.exports = WebSocket = (server) => {
         // save the connection for future reference
         clients[connectionId] = connection;
     }
-    // sends message to all the clients
-    function messageClients(message) {
-        for (var i in clients) {
-            clients[i].sendUTF(message);
-        }
-    }
+    // // sends message to all the clients
+    // function messageClients(message) {
+    //     for (var i in clients) {
+    //         clients[i].sendUTF(message);
+    //     }
+    // }
 
 }

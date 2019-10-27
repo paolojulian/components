@@ -22,7 +22,7 @@ button.addEventListener('click', () => {
 })
 window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-var connection = new WebSocket('ws://localhost:8080');
+var connection = new WebSocket('ws://localhost:8080?id=123');
 var connectingSpan = document.getElementById("connecting");
 
 connection.onopen = function () {
@@ -32,7 +32,5 @@ connection.onerror = function (error) {
 	// connectingSpan.innerHTML = "Error occured";
 };
 connection.onmessage = function (message) {
-    var data = JSON.parse(message.data);
-    console.log(data);
-
+    console.log(message.data);
 }

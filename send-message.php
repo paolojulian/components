@@ -14,7 +14,7 @@ $ch = curl_init('http://localhost:8080');
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
 
 $jsonData = json_encode([
-	'name' => 'paolo',
+	'id' => 123, 
 	'message' => $message
 ]);
 

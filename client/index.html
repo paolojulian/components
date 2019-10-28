@@ -8,7 +8,59 @@
     <script src="v-notifier/index.js"></script>
 </head>
 <body>
-    <v-notifier>
-    </v-notifier>
+    <div class="wrapper">
+        <input type="text"
+            name="message"
+            value=""
+        />
+        <button>
+            Send
+        </button>
+    </div>
+    <script>
+        const userId = 132;
+        const button = document.querySelector('.wrapper button');
+        const message = document.querySelector('.wrapper input[name="message"]');
+        button.addEventListener('click', sendMessage)
+
+        const sendMessage = async() => {
+            const body = JSON.stringify({
+                receiver_id: userId,
+                message: message.value
+            });
+            const response = await fetch('/send-notif.php', { method: 'POST', body });
+            const responseData = await response.json();
+            console.log(responseData);
+        }
+
+        const showNotification = (message) => {
+            const notif = document.create('v-notifier')
+            document.body.appendChild(notif);
+            notif.message = message;
+        }
+
+        const connectWebSocket = () => {
+            let websocket = new WebSocket(`ws://127.0.0.1:8080/notifications?token=${userId}`);
+            websocket.onopen = e => {
+                console.log('Connected');
+            }
+            websocket.onmessage = e => {
+                showNotification(e.data)
+            }
+            websocket.onclose = function(e) {
+                console.log('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+                setTimeout(function() {
+                    connectWebSocket();
+                }, 1000);
+            };
+
+            websocket.onerror = function(err) {
+                console.error('Socket encountered error: ', err.message, 'Closing socket');
+                this.websocket.close();
+            };
+        }
+
+        connectWebSocket();
+    </script>
 </body>
 </html>

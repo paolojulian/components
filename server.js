@@ -4,7 +4,7 @@ const url = require('url');
 const WebSocketServer = require('websocket').server;
 let server = htpp.createServer((request, response) => {
     const getPostParam = (request, callback) => {
-        const querystring = require('querystring')
+		const querystring = require('querystring')
         if (request.method === "POST") {
             let body = '';
 
@@ -56,18 +56,7 @@ function websocketRequest(request) {
 }
 
 const notifyUser = (userId, message) => {
-	clients[Number(userId)].sendUTF(message)
-}
-// sends message to all the clients
-function messageClients(message) {
-	for (var i in clients) {
-		clients[i].sendUTF(message);
+	if (clients[Number(userId)]) {
+		clients[Number(userId)].sendUTF(message)
 	}
 }
-
-// const wss = new WebSocket.Server({ server });
-
-// wss.on('connection', (ws, req) => {
-// 	const { query: { token } } = url.parse(req.url, true);
-// 	console.log(token);
-// })

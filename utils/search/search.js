@@ -36,4 +36,4 @@ const searchQuery = () => {
     };
 };
 
-export const kenSearch = searchQuery();
+export const search = searchQuery();

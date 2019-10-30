@@ -1,3 +1,4 @@
+
 const template = document.createElement('template');
 template.innerHTML = `
     <style>
@@ -71,7 +72,7 @@ class VNotifier extends HTMLElement {
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
             this._close();
-        }, 5000);
+        }, 10000);
     }
 
     set message (val) {
